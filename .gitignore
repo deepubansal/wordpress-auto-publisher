@@ -1,0 +1,4 @@
+*.pyc
+.idea/
+sample-posts/done/
+sample-posts/progress
