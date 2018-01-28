@@ -31,7 +31,7 @@ class Postman:
         with open(os.path.join(post_dir, "metadata.json"), 'r') as f:
             metadata = json.loads(f.read())
             post = {'slug': metadata['information']['slug'], 'title': metadata['information']['title']}
-            if metadata['information']['title-img']:
+            if 'title-img' in metadata['information'] and metadata['information']['title-img']:
                 media = self.upload_media(os.path.join(post_dir, metadata['information']['title-img']))
                 post['featured_media'] = media['id']
             post['status'] = status

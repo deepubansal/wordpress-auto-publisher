@@ -22,12 +22,15 @@ class PostMaster:
         posts = filter(lambda x: os.path.isdir(os.path.join(self.base_dir, x)) and x != self.done_folder_name, os.listdir(self.base_dir))
         if posts:
             post_dir = os.path.join(self.base_dir, posts[0])
-            self.postman.create_post(post_dir, "publish")
-            post_dir_name = os.path.basename(post_dir)
-            with open(self.progress_file, "a") as f:
-                f.write("{0}:{1}\n".format(post_dir_name, time.strftime("%c")))
-            shutil.copytree(post_dir, os.path.join(self.done_folder, post_dir_name))
-            shutil.rmtree(post_dir)
+            response = self.postman.create_post(post_dir, "publish")
+            if response.status_code == 201:
+                post_dir_name = os.path.basename(post_dir)
+                with open(self.progress_file, "a") as f:
+                    f.write("{0}--{1}--{2}\n".format(post_dir_name, time.strftime("%c"), response.json()['link']))
+                shutil.copytree(post_dir, os.path.join(self.done_folder, post_dir_name))
+                shutil.rmtree(post_dir)
+            else:
+                print "Error in uploading post: {0}".format(posts[0])
 
 
 
