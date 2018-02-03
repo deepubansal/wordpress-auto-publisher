@@ -8,6 +8,9 @@ The main idea behind this publisher is to auto-publish a set of posts organized 
 * Either of these plugins on target wordpress installation
   * https://github.com/WP-API/Basic-Auth
   * https://github.com/georgestephanis/application-passwords/
+* Following python modules on client machine:
+  * `pip install wordpress-api`
+  * `pip install requests_oauthlib`
   
 
 ## Usage
